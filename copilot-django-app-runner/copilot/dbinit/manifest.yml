@@ -1,6 +1,6 @@
 # The manifest for the "dbinit" job.
 # Read the full specification for the "Scheduled Job" type at:
-#  https://aws.github.io/copilot-cli/docs/manifest/scheduled-job/
+#  https://aws.github.io/copilot-cli/ja/docs/manifest/scheduled-job/
 
 # Your job name will be used in naming your resources like log groups, ECS Tasks, etc.
 name: dbinit
@@ -30,8 +30,8 @@ platform: linux/x86_64   # See https://aws.github.io/copilot-cli/docs/manifest/s
 #variables:                    # Pass environment variables as key value pairs.
 #  LOG_LEVEL: info
 
-#secrets:                      # Pass secrets from AWS Systems Manager (SSM) Parameter Store.
-#  GITHUB_TOKEN: GITHUB_TOKEN  # The key is the name of the environment variable, the value is the name of the SSM parameter.
+secrets:
+  APRDJANGOWEBCLUSTER_SECRET_ARN: arn:aws:secretsmanager:us-west-2:573143736992:secret:aprdjangowebclusterAuroraSe-ekmB1YDBn4Re-yfGVc5
 
 # You can override any of the values defined above by environment.
 #environments:

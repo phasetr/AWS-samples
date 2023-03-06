@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 import json
+import boto3
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -74,9 +75,9 @@ WSGI_APPLICATION = 'mydjango.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-dbsecret = os.environ.get('MYDJANGODB_SECRET')
-if dbsecret is None:
-    print("Since `dbsecret` is None, we use sqlite!")
+secret_arn = os.getenv("APRDJANGOWEBCLUSTER_SECRET_ARN")
+if secret_arn is None:
+    print("Since `secret_arn` is None, we use sqlite!")
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -84,10 +85,12 @@ if dbsecret is None:
         }
     }
 else:
-    print("dbsecret is not None!")
-    print(dbsecret)
-    DBINFO = json.loads(dbsecret)
-    print(DBINFO)
+    print("secret_arn is not None!")
+    print(f"secret_arn: {secret_arn}")
+    sm_client = boto3.client('secretsmanager')
+    response = sm_client.get_secret_value(SecretId=secret_arn)
+    DBINFO = json.loads(response['SecretString'])
+
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
