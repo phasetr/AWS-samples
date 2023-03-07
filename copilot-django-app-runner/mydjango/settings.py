@@ -87,9 +87,8 @@ if secret_arn is None:
 else:
     print("secret_arn is not None!")
     print(f"secret_arn: {secret_arn}")
-    sm_client = boto3.client('secretsmanager')
-    response = sm_client.get_secret_value(SecretId=secret_arn)
-    DBINFO = json.loads(response['SecretString'])
+    DBINFO = json.loads(secret_arn)
+    print(f"DBINFO: {DBINFO}")
 
     DATABASES = {
         'default': {
