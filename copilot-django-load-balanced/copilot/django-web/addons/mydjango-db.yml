@@ -41,12 +41,6 @@ Resources:
       VpcId:
         Fn::ImportValue:
           !Sub '${App}-${Env}-VpcId'
-      SecurityGroupIngress:
-        - IpProtocol: tcp
-          FromPort: 5432
-          ToPort: 5432
-          SourceSecurityGroupId: { 'Fn::ImportValue': !Sub '${App}-${Env}-EnvironmentSecurityGroup' }
-          Description: 'Access to environment security group'
       Tags:
         - Key: Name
           Value: !Sub 'copilot-${App}-${Env}-${Name}-Aurora'
@@ -62,6 +56,11 @@ Resources:
           IpProtocol: tcp
           Description: !Sub 'From the Aurora Security Group of the workload ${Name}.'
           SourceSecurityGroupId: !Ref mydjangodbSecurityGroup
+        - ToPort: 5432
+          FromPort: 5432
+          IpProtocol: tcp
+          Description: 'Access to environment security group'
+          SourceSecurityGroupId: { 'Fn::ImportValue': !Sub '${App}-${Env}-EnvironmentSecurityGroup' }
       VpcId:
         Fn::ImportValue:
           !Sub '${App}-${Env}-VpcId'
