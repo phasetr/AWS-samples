@@ -1,16 +1,20 @@
-# AWS copilot Database access from job
+# AWS samples
 
-## References
+## Database access from copilot job
+
+- See [copilot-django-app-runner](copilot-django-app-runner) and [copilot-django-load-balanced](copilot-django-load-balanced).
+
+### References
 
 - [How to migrate a database by the copilot job for Load Balanced Service](https://github.com/aws/copilot-cli/issues/4579)
 
-### Django sample
+#### Django sample
 
 - [How to deploy a containerized Django app with AWS Copilot](https://www.endpointdev.com/blog/2022/06/how-to-deploy-containerized-django-app-with-aws-copilot/)
   - [Original GitHub](https://github.com/aburayyanjeffry/django-copilot.git)
 - [How to deploy a Django App with Aurora Serverless and AWS Copilot](https://www.endpointdev.com/blog/2022/06/how-to-deploy-django-app-with-aurora-serverless-and-copilot/)
 
-## Setting for database
+### Setting for database
 
 - cf. [Comment in GitHub](https://github.com/aws/copilot-cli/issues/4579#issuecomment-1459149195)
 - Create an app, service, storage, and jobs by `copilot`
@@ -37,7 +41,7 @@
           SourceSecurityGroupId: { 'Fn::ImportValue': !Sub '${App}-${Env}-EnvironmentSecurityGroup' }  # ADD
 ```
 
-## copilot command samples
+### copilot command samples
 
 ```
 copilot init \
@@ -67,19 +71,19 @@ copilot storage init \
 copilot deploy --name django-web
 ```
 
-## Django memo for myself
+### Django memo for myself
 
-### データベース切り替え
+#### データベース切り替え
 
 `settings.py`でデータベースの部分を書き換える.
 
-### 最初の`Django`インストール
+#### 最初の`Django`インストール
 
 ```
 docker-compose run web django-admin startproject mydjango .
 ```
 
-### マイグレーション関係
+#### マイグレーション関係
 
 
 - [参考：`--noinput`](https://kamatimaru.hatenablog.com/entry/2021/02/28/030646)
