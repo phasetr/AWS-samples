@@ -35,7 +35,6 @@ network:
   vpc:
     placement: private
 
-
 # Enable tracing for the service.
 # observability:
 #   tracing: awsxray
