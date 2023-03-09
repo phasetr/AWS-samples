@@ -1,5 +1,16 @@
 # README
 
+## command
+
+```shell
+# build
+docker compose build -f compose.build.yml build
+# 実行
+docker compose -f compose-with-dotnet.yml up
+# データベースだけ立ち上げる
+docker compose up
+```
+
 ## Connection String
 
 ### SQLite

@@ -1,0 +1,33 @@
+version: "3"
+services:
+  base:
+    build:
+      context: .
+      dockerfile: CopilotRequestDriven/Dockerfile
+      target: base
+    image: base:latest
+  build:
+    build:
+      context: .
+      dockerfile: CopilotRequestDriven/Dockerfile
+      target: build
+    image: build:latest
+  publish:
+    build:
+      context: .
+      dockerfile: CopilotRequestDriven/Dockerfile
+      target: publish
+    image: publish:latest
+  migration:
+    # tty: true
+    build:
+      context: .
+      dockerfile: CopilotRequestDriven/Dockerfile
+      target: migration
+    image: migration:latest
+  final:
+    build:
+      context: .
+      dockerfile: CopilotRequestDriven/Dockerfile
+      target: final
+    image: final:latest

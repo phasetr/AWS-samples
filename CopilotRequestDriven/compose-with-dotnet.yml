@@ -1,0 +1,33 @@
+version: "3"
+services:
+  pgsql:
+    image: postgres:14
+    platform: linux/x86-64
+    tty: true
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: mydb
+      TZ: Asia/Tokyo
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "user", "||", "exit", "1" ]
+      interval: 2s
+      timeout: 3s
+      retries: 2
+  backend:
+    container_name: net-app
+    image: final:latest
+    ports:
+      - 80:80
+    # networks:
+    #   - net-net
+    depends_on:
+      - pgsql
+    # volumes:
+    #   - ./CopilotRequestDriven:/app
+
+# networks:
+#   net-net:
+#     driver: bridge
