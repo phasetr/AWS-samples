@@ -159,7 +159,7 @@ namespace CopilotRequestDriven.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "043c1a75-9f47-4629-b72e-f0a34c3eece6", 0, "923fdc54-0e5d-4c8f-bbb6-98503c0b1b37", "User", "dev@phasetr.com", true, false, null, "DEV@PHASETR.COM", "ADMIN", "AQAAAAIAAYagAAAAEMW5n9zx2su2J3s8H4cs6mAblUJALB7xTkJzslr3+Nb2pN17LUs81u5JwhaGnGXDyQ==", null, false, "", false, "admin" });
+                values: new object[] { "043c1a75-9f47-4629-b72e-f0a34c3eece6", 0, "b5d03116-2624-4267-a673-aa0137cf3658", "User", "dev@phasetr.com", true, false, null, "DEV@PHASETR.COM", "ADMIN", "AQAAAAIAAYagAAAAEBaRRTCfOW2V79DuLDb+d9Xo1qlsz9K0F8w4dJkREGuANFP2xzG/7PdRU6kLqDFTNQ==", null, false, "", false, "admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

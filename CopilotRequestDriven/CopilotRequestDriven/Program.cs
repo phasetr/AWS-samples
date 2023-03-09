@@ -1,4 +1,5 @@
 using CopilotRequestDriven.Data;
+using CopilotRequestDriven.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,9 +11,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection") ??
                       throw new InvalidOperationException("Connection string 'DefaultConnection' not found.")));
  */
+var secretArn = Environment.GetEnvironmentVariable("SECRET_ARN");
+var connectionString = secretArn is null
+    ? builder.Configuration.GetConnectionString("DefaultConnection")!
+    : DbConnectionStringService.GetConnectionString(secretArn);
+Console.WriteLine($"Connection String: {connectionString}");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection") ??
-                      throw new InvalidOperationException("Connection string 'DefaultConnection' not found.")));
+    options.UseNpgsql(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)

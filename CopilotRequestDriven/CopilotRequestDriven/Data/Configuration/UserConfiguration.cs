@@ -24,7 +24,7 @@ public class UserConfiguration:IEntityTypeConfiguration<User>
 
     public void Configure(EntityTypeBuilder<User> builder)
     {
-        _user1.PasswordHash = _hasher.HashPassword(_user1, "password");
+        _user1.PasswordHash = _hasher.HashPassword(_user1, "aspdotnetpass");
         builder.HasData(_user1);
     }
 }
