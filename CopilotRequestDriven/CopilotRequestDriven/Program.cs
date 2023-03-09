@@ -11,9 +11,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection") ??
                       throw new InvalidOperationException("Connection string 'DefaultConnection' not found.")));
  */
-var secretArn = Environment.GetEnvironmentVariable("SECRET_ARN");
+var secretArn = Environment.GetEnvironmentVariable("WEBCLUSTER_SECRET_ARN");
+var defaultConnection = builder.Configuration.GetConnectionString("DefaultConnection");
 var connectionString = secretArn is null
-    ? builder.Configuration.GetConnectionString("DefaultConnection")!
+    ? defaultConnection ?? "should not empty"
     : DbConnectionStringService.GetConnectionString(secretArn);
 Console.WriteLine($"Connection String: {connectionString}");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>

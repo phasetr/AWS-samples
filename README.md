@@ -59,6 +59,10 @@ copilot env init \
 ```
 
 ```
+copilot svc init
+```
+
+```
 copilot storage init \
   -n mydjango-db \
   -t Aurora -w \
@@ -69,6 +73,10 @@ copilot storage init \
 
 ```
 copilot deploy --name django-web
+```
+
+```
+copilot job init
 ```
 
 ### Django memo for myself
