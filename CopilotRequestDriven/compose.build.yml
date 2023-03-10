@@ -20,6 +20,7 @@ services:
       target: publish
     image: publish:latest
   final:
+    tty: true
     build:
       context: ./CopilotRequestDriven
       dockerfile: Dockerfile

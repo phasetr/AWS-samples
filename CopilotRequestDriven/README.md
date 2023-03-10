@@ -1,5 +1,9 @@
 # README
 
+## 事前確認
+
+- ここで指定済みの`copilot`ディレクトリの内容で再生成するときは`copilot/web/addons/iam-secrets-manager-policy.yml`のデータベース接続用の`WEBCLUSTER_SECRET_ARN`の値は適切に書き換えること。
+
 ## command
 
 ```shell

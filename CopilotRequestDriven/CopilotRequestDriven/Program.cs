@@ -12,10 +12,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
                       throw new InvalidOperationException("Connection string 'DefaultConnection' not found.")));
  */
 var secretArn = Environment.GetEnvironmentVariable("WEBCLUSTER_SECRET_ARN");
+var dbConnection = new DbConnectionStringService();
+Console.WriteLine($"secretArn: {secretArn}");
 var defaultConnection = builder.Configuration.GetConnectionString("DefaultConnection");
 var connectionString = secretArn is null
     ? defaultConnection ?? "should not empty"
-    : DbConnectionStringService.GetConnectionString(secretArn);
+    : await dbConnection.GetConnectionString(secretArn);
 Console.WriteLine($"Connection String: {connectionString}");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));

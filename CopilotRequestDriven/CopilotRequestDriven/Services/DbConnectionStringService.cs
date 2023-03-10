@@ -1,13 +1,31 @@
 using System.Text.Json;
+using Amazon.SecretsManager.Extensions.Caching;
 using CopilotRequestDriven.Models;
 
 namespace CopilotRequestDriven.Services;
 
-public static class DbConnectionStringService
+public class DbConnectionStringService
 {
-    public static string GetConnectionString(string secretJsonString)
+    public async Task<string> GetConnectionString(string secretArn)
     {
-        var secret = JsonSerializer.Deserialize<AwsAuroraSecret>(secretJsonString);
+        var cache = new SecretsManagerCache();
+        string secretString;
+        try
+        {
+            secretString = await cache.GetSecretString(secretArn);
+            if (secretString == null)
+            {
+                Console.WriteLine("secretString is null");
+                return "Cannot get a secret string";
+            }
+        }
+        catch (Exception e)
+        {
+            // ジョブの場合は直接JSONの値が入るようでHTTPアクセスでエラーが出るため`secretArn`で置き換える
+            secretString = secretArn;
+        }
+        Console.WriteLine($"secretString: {secretString}");
+        var secret = JsonSerializer.Deserialize<AwsAuroraSecret>(secretString);
         return
             $"User ID={secret!.username};Password={secret.password};Host={secret.host};Port={secret.port};Database={secret.dbname};";
     }
