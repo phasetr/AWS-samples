@@ -18,7 +18,7 @@ RUN dotnet tool restore \
     && dotnet dotnet-ef migrations bundle -o /app/publish/bundle
 
 FROM base AS final
-ENV ASPNETCORE_ENVIRONMENT Stagingco
+ENV ASPNETCORE_ENVIRONMENT Staging
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "CopilotRequestDriven.dll"]
